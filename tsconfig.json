@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "sourceMap": false,
+        "module": "es6",
+        "moduleResolution": "node",
+        "target": "es5",
+        "declaration": true,
+        "outDir": "dist/lib",
+        "declarationDir": "dist/types",
+        "lib": [
+            "dom",
+            "es5",
+            "es2015.core",
+            "es2015.collection",
+            "es2015.promise"
+        ]
+    },
+    "include": [
+        "src"
+    ]
+}

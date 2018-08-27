@@ -1,0 +1,105 @@
+{
+  "name": "typescript-library-boilerplate",
+  "version": "1.0.0",
+  "description": "Boilerplate with basic setup for TypeScript libraries.",
+  "main": "dist/mylib.umd.js",
+  "module": "dist/mylib.es5.js",
+  "types": "dist/types/mylib.d.ts",
+  "repository": "https://github.com/Sethorax/typescript-library-boilerplate.git",
+  "author": "Sethorax <info@sethorax.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@semantic-release/git": "^7.0.3",
+    "@types/jest": "^23.3.1",
+    "@types/jsdom": "^11.0.6",
+    "commitizen": "^2.10.1",
+    "coveralls": "^3.0.2",
+    "cz-conventional-changelog": "^2.1.0",
+    "husky": "^0.14.3",
+    "jest": "^23.5.0",
+    "jsdom": "^12.0.0",
+    "lint-staged": "^7.2.2",
+    "lodash.camelcase": "^4.3.0",
+    "prettier": "^1.14.2",
+    "rimraf": "^2.6.2",
+    "rollup": "^0.65.0",
+    "rollup-plugin-commonjs": "^9.1.6",
+    "rollup-plugin-json": "^3.0.0",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-sourcemaps": "^0.4.2",
+    "rollup-plugin-typescript2": "^0.16.1",
+    "semantic-release": "^15.9.11",
+    "travis-deploy-once": "^5.0.4",
+    "ts-jest": "^23.1.4",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.15.0",
+    "tslint-config-standard": "^7.1.0",
+    "typescript": "^3.0.1"
+  },
+  "scripts": {
+    "lint": "tslint  --project tsconfig.json -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
+    "prebuild": "rimraf dist",
+    "build": "tsc --module commonjs && rollup -c rollup.config.ts",
+    "test": "jest",
+    "test:watch": "npm run test -- --watch",
+    "test:prod": "npm run lint && npm run test -- --coverage --no-cache",
+    "report-coverage": "cat ./coverage/lcov.info | coveralls",
+    "commit": "git-cz",
+    "semantic-release": "semantic-release",
+    "precommit": "lint-staged",
+    "travis-deploy-once": "travis-deploy-once"
+  },
+  "lint-staged": {
+    "{src,test}/**/*.ts": [
+      "prettier --print-width 80 --trailing-comma es5 --write",
+      "git add"
+    ]
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.jsx?$": "<rootDir>/node_modules/babel-jest",
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "verbose": true,
+    "testURL": "http://localhost/",
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "tsconfig.test.json"
+      }
+    },
+    "collectCoverage": true
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "release": {
+    "prepare": [
+      "@semantic-release/npm",
+      {
+        "path": "@semantic-release/git",
+        "assets": [
+          "package.json",
+          "dist/**/*.{js,css,d.ts}"
+        ],
+        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+      }
+    ],
+    "publish": [
+      "@semantic-release/github"
+    ]
+  }
+}
