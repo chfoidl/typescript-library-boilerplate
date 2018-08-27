@@ -4,4 +4,4 @@ This boilerplate provides a starting point for TypeScript libraries with preconf
 
 ## Usage
 
-Just clone this repository and change `mylib.ts` in something more suitable for your library in `package.json` and in the `src` folder.P
+Just clone this repository and change `mylib.ts` in something more suitable for your library in `package.json` and in the `src` folder.
